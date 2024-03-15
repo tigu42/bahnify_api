@@ -76,6 +76,9 @@ public class TrainStopStats {
         return punctuality;
     }
 
+    public int getCanceled() {return canceled;}
+    public int getTrainCount() {return trainCount;}
+
 
 
 
