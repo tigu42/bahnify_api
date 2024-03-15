@@ -18,6 +18,8 @@ public class ConnectionProbabilityController {
     public ConnectionProbabilityController(ConnectionProbabilityService service) {
         this.service = service;
     }
+
+
     // http://192.168.178.45:8080/api/connectionProbability?station=N%C3%BCrnberg%20Hbf&trainNumArr=929&opArr=ICE&timeArr=22:28&trainNumDep=3418&opDep=RE&timeDep=22:37
     @GetMapping("/connectionProbability")
     public ConnectionProbability.ConnectionProbabilityResult ConnectionProbabilityEndpoint(
