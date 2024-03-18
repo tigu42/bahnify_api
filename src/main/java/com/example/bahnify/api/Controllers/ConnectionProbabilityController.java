@@ -21,6 +21,7 @@ public class ConnectionProbabilityController {
 
 
     // http://192.168.178.45:8080/api/connectionProbability?station=N%C3%BCrnberg%20Hbf&trainNumArr=929&opArr=ICE&timeArr=22:28&trainNumDep=3418&opDep=RE&timeDep=22:37
+    // http://192.168.178.45:8080/api/connectionProbability?station=N%C3%BCrnberg%20Hbf&trainNumArr=929&opArr=ICE&timeArr=22:28&trainNumDep=3418&opDep=RE&timeDep=22
     @GetMapping("/connectionProbability")
     public ConnectionProbability.ConnectionProbabilityResult ConnectionProbabilityEndpoint(
             @RequestParam(value = "station") String station,
@@ -30,6 +31,7 @@ public class ConnectionProbabilityController {
             @RequestParam(value = "trainNumDep") String trainNumDep,
             @RequestParam(value = "opDep") String operatorDep,
             @RequestParam(value = "timeDep") @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)LocalTime timeDep) {
+        
         IdentifiableStop arrivingTrain = new IdentifiableStop(trainNumArr, operatorArr, station, Direction.arriving, timeArr);
         IdentifiableStop departingTrain = new IdentifiableStop(trainNumDep, operatorDep, station, Direction.departing, timeDep);
         return service.getResponse(arrivingTrain, departingTrain);

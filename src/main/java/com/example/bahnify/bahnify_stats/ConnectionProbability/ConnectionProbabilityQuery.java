@@ -66,6 +66,7 @@ public class ConnectionProbabilityQuery {
             and time(ta.scheduled_arrival) = ?""";
 
     public static ChangeProbability getChangeProbability(IIdentifiable arriving, IIdentifiable departing, DatabaseConnection dbCon) {
+        System.out.println("Running ChangeProbability Query");
         Connection con = dbCon.getConnection();
         ChangeProbability ret = null;
         try (PreparedStatement stmt = con.prepareStatement(changeQuery)) {
@@ -98,6 +99,7 @@ public class ConnectionProbabilityQuery {
     }
 
     public static TrainStopStats getStats(IIdentifiable train, DatabaseConnection dbCon) {
+        System.out.println("Running getStats query");
         String query = train.getDirection() == Direction.arriving ? queryArriving : queryDeparting;
         Connection con = dbCon.getConnection();
         TrainStopStats ret = null;

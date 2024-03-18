@@ -17,7 +17,7 @@ public class TrainOperatorQuery {
     public static List<TrainOperator> getTrainOperators (DataInfo dataInfoClass) {
         Connection con = dataInfoClass.getDbCon().getConnection();
         List<TrainOperator> trainOperators = new ArrayList<>();
-
+        System.out.println("Running operators query");
         try (PreparedStatement stmt = con.prepareStatement(query))
         {
             ResultSet rs = stmt.executeQuery();
