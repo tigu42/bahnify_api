@@ -11,5 +11,6 @@ public interface IIdentifiable {
 
     Direction getDirection();
     LocalTime getTime();
+    void setTrainNum(String trainNum);
 }
 

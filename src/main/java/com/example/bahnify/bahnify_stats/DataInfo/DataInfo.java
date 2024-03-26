@@ -10,6 +10,7 @@ import java.util.*;
 public class DataInfo {
     private List<String> stations;
     private List<TrainOperator> operators;
+    private List<String> NATrainOps;
     private final DatabaseConnection dbCon;
 
     public DataInfo() {
@@ -23,18 +24,14 @@ public class DataInfo {
         }
         return stations;
     }
+    public List<String> getNATrainOps() {
+        if (NATrainOps == null) {
 
-    public void Test() {
-        for (String s: getStations()){
-            System.out.println(s);
+            NATrainOps = NATrainQuery.getNATrainTypes(this);
         }
+        return NATrainOps;
     }
 
-    public void Test2() {
-        for (TrainOperator t: getOperators()) {
-            System.out.println(t);
-        }
-    }
 
     public List<TrainOperator> getOperators() {
 

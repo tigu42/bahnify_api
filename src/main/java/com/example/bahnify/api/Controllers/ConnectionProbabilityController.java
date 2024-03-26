@@ -11,7 +11,7 @@ import java.time.LocalTime;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = {"http://192.168.178.45:3000", "http://localhost:3000"})
+@CrossOrigin(origins = {"http://192.168.178.45:3000", "http://localhost:3000", "chrome-extension://dlcibkhkjdhlcmjmgbajajdbkhiihkfj"})
 public class ConnectionProbabilityController {
     private final ConnectionProbabilityService service;
 
@@ -35,5 +35,19 @@ public class ConnectionProbabilityController {
         IdentifiableStop arrivingTrain = new IdentifiableStop(trainNumArr, operatorArr, station, Direction.arriving, timeArr);
         IdentifiableStop departingTrain = new IdentifiableStop(trainNumDep, operatorDep, station, Direction.departing, timeDep);
         return service.getResponse(arrivingTrain, departingTrain);
+    }
+    @GetMapping("/extension/connectionProbability")
+    public ConnectionProbability.ConnectionProbabilityResult ConnectionProbabilityExtensionEndpoint(
+            @RequestParam(value = "station") String station,
+            @RequestParam(value = "trainNumArr") String trainNumArr,
+            @RequestParam(value = "opArr") String operatorArr,
+            @RequestParam(value = "timeArr") @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)LocalTime timeArr,
+            @RequestParam(value = "trainNumDep") String trainNumDep,
+            @RequestParam(value = "opDep") String operatorDep,
+            @RequestParam(value = "timeDep") @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)LocalTime timeDep) {
+
+        IdentifiableStop arrivingTrain = new IdentifiableStop(trainNumArr, operatorArr, station, Direction.arriving, timeArr);
+        IdentifiableStop departingTrain = new IdentifiableStop(trainNumDep, operatorDep, station, Direction.departing, timeDep);
+        return service.getResponseFromAlias(arrivingTrain, departingTrain);
     }
 }

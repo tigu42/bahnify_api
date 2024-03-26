@@ -29,4 +29,6 @@ public class DataInfoController {
     public List<TrainOperator> trainOperatorsEndpoint() {
         return service.getTrainOperatorsResponse();
     }
+    @GetMapping("/naops")
+    public List<String> naOpsEndpoint() {return service.getNAOpsLookupResponse();}
 }

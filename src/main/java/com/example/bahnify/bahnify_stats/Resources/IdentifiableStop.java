@@ -29,6 +29,8 @@ public class IdentifiableStop implements IIdentifiable {
         this.time = time;
     }
 
+
+    @Override public void setTrainNum(String trainNum) {this.trainNum = trainNum;}
     @Override
     public String getTrainNum() {
         return trainNum;

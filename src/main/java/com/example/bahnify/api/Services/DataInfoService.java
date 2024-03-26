@@ -23,4 +23,6 @@ public class DataInfoService {
     public List<TrainOperator> getTrainOperatorsResponse() {
         return dataInfo.getOperators();
     }
+
+    public List<String> getNAOpsLookupResponse() {return dataInfo.getNATrainOps();}
 }

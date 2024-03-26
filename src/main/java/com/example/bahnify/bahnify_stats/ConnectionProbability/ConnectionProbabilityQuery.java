@@ -27,7 +27,6 @@ public class ConnectionProbabilityQuery {
             and s.description = ?
             and t.direction <> 2
             and t.`type` = ?
-            and d.status <> 2
             and time(t.scheduled_arrival) = ?""";
 
     private final static String queryDeparting = """
@@ -45,8 +44,17 @@ public class ConnectionProbabilityQuery {
             and t.`type` = ?
             and TIME(t.scheduled_departure) = ?""";
 
+    /*
+    all_planned_journeys
+    all_connections
+    missed_connecting_train
+    canceled_connecting_train
+    canceled_arriving_train
+
+    */
+
     private final static String changeQuery = """
-            select sum(case when (da.status = 1 and B.status_dep = 2) or (da.current_arrival > B.current_dep) then 1 else 0 end) as failed, sum(case when da.status = 1 and B.status_dep is not null then 1 else 0 end) as all_trains
+            select sum(case when da.status = 2 then 1 else 0 end) as canceled_arriving_train, sum(case when (da.status = 1 and B.status_dep = 2) then 1 else 0 end) as canceled_connecting_train, sum(case when (da.status = 1 and B.status_dep = 1) and (da.status = 1 and da.current_arrival > B.current_dep) then 1 else 0 end) as missed_connecting_train, sum(case when da.status = 1  then 1 else 0 end) as all_connections, count(*) as all_planned_journeys
             from train ta
             left join delay da on ta.id = da.train
             left join (
@@ -63,6 +71,7 @@ public class ConnectionProbabilityQuery {
             where ta.train_number = ?
             and sa.description = ?
             and ta.`type` = ?
+            and B.status_dep is not null
             and time(ta.scheduled_arrival) = ?""";
 
     public static ChangeProbability getChangeProbability(IIdentifiable arriving, IIdentifiable departing, DatabaseConnection dbCon) {
@@ -89,7 +98,11 @@ public class ConnectionProbabilityQuery {
             stmt.setString(paramIndex, arriving.getTime().toString());
             rs = stmt.executeQuery();
             while (rs.next()) {
-                ret = new ChangeProbability(rs.getInt("failed"), rs.getInt("all_trains"));
+                ret = new ChangeProbability(rs.getInt("all_planned_journeys"),
+                        rs.getInt("all_connections"),
+                        rs.getInt("missed_connecting_train"),
+                        rs.getInt("canceled_connecting_train"),
+                        rs.getInt("canceled_arriving_train"));
             }
 
         } catch (SQLException e) {
