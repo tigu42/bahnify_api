@@ -11,7 +11,6 @@ import java.time.LocalTime;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = {"http://192.168.178.45:3000", "http://localhost:3000", "chrome-extension://dlcibkhkjdhlcmjmgbajajdbkhiihkfj"})
 public class ConnectionProbabilityController {
     private final ConnectionProbabilityService service;
 

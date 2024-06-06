@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+
 @RequestMapping("/api/data")
-@CrossOrigin(origins = {"http://192.168.178.45:3000", "http://localhost:3000"})
 public class DataInfoController {
 
     private final DataInfoService service;

@@ -9,10 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 
 
-// @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = {"http://192.168.178.45:3000", "http://localhost:3000"})
 public class HourlyDelaysController {
 
     private final HourlyDelaysService service;

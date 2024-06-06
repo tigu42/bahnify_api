@@ -6,6 +6,7 @@ import com.example.bahnify.bahnify_stats.DatabaseConfig;
 import com.example.bahnify.bahnify_stats.DatabaseConnection;
 import com.example.bahnify.bahnify_stats.Resources.Direction;
 import com.example.bahnify.bahnify_stats.Resources.IdentifiableStop;
+import com.example.bahnify.bahnify_stats.TrainNumLookup.TrainNumLookup;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RestController;
